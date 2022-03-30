@@ -1,0 +1,86 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("Rafa's Hub V1", "Midnight")
+
+-- Physics
+local Tab = Window:NewTab("Physics")
+local PhysicSection = Tab:NewSection("Physics ")
+
+-- WalkSpeed
+PhysicSection:NewSlider("WalkSpeed", "SliderInfo", 500, 0, function(s) -- 500 (MaxValue) | 0 (MinValue)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
+end)
+
+-- JumpPower
+PhysicSection:NewSlider("JumpPower", "SliderInfo", 500, 0, function(s) -- 500 (MaxValue) | 0 (MinValue)
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = s
+end)
+------
+
+-- Scripts
+
+local ScriptTab = Window:NewTab("Scripts")
+local ScriptSection = ScriptTab:NewSection("Scripts")
+
+-- Admin
+ScriptSection:NewButton("Admin", "Admin", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/66rafaa/adminscript/main/script"))()
+end)
+
+-- Mags
+
+ScriptSection:NewButton("Mags", "Mags", function()
+    local plr = game.Players.LocalPlayer
+local mouse = plr:GetMouse()
+local trigger = false
+local onbind = "f"
+local offbind = "g"
+local distance = 27
+local mag = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui)
+local magnet = Instance.new("TextLabel", mag)
+magnet.Active = true
+magnet.Draggable = true
+magnet.Text = "Magnet is OFF"
+magnet.Position = UDim2.new(0.417, 0, 0.044, 0)
+magnet.Size = UDim2.new(0.15, 0, 0.048, 0)
+mouse.KeyDown:connect(function(key)
+if key == onbind then
+trigger = true
+magnet.Text = "Mags are on"
+elseif key == offbind then
+trigger = false
+magnet.Text = "Mags are off"
+end
+end)
+
+while wait(0.1) do
+if trigger == true then
+for i,v in next, workspace:GetChildren() do
+if v:IsA("Part") and v.Name == "Football"then
+local football = v
+local hum = game.Players.LocalPlayer.Character.HumanoidRootPart
+local magnitude = (football.Position - hum.Position).magnitude
+if magnitude <= distance then
+football.CFrame = CFrame.new(hum.Position)
+end
+end
+end
+end
+end
+end)
+
+-- Phantom Forces
+ScriptSection:NewButton("Phantom Forces", "Phantom Forces", function()
+    loadstring(game:HttpGet("https://projectevo.xyz/script/loader.lua"))()
+end)
+
+-- Info
+
+local InfoTab = Window:NewTab("Info")
+local InfoSection = InfoTab:NewSection("Rafa's Hub V1")
+InfoSection:NewLabel("Discord: Raf#9793 ")
+InfoSection:NewLabel("Updates: Mags Added, Jp/Walkspeed added ")
+-- Toggle UI
+InfoSection:NewKeybind("Keybind", "KeybindInfo", Enum.KeyCode.Q, function()
+	Library:ToggleUI()
+end)
+
